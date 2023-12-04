@@ -1,31 +1,38 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+//네트워크 연결
+public class Solution {
+    Set<Integer> s = new HashSet<>();
 
-class Solution {
-    public void getRange(int start, int end, List<Integer> deck, int[] cards){
-        for (int i = start; i < end; i++) {
-            deck.add(i);
+    public int getParent(int[] parent, int p) {
+        while (parent[p] != -1) {
+            p = parent[p];
         }
+        return p;
     }
 
-    public int solution(int coin, int[] cards) {
+    public int solution(int n, int[][] computers) {
         int answer = 0;
-        int index = 0;
-        int n = cards.length;
-        List<Integer> deck = new ArrayList<>();
-        int limit = cards.length + 1;
+        int[] parent = new int[n];
+        Arrays.fill(parent, -1);
 
-        //init
-        int first = n/3-1;
-        index = first;
-        getRange(0,first,deck,cards);
+        for (int i = 0; i < computers.length; i++) {
+            for (int j = 0; j < computers.length; j++) {
+                if (computers[i][j] == 1 && getParent(parent,i) != getParent(parent,j) && i != j) {
+                    parent[getParent(parent, j)] = getParent(parent, i);
+                    computers[i][j] = 0;
+                    computers[j][i] = 0;
+                }
+            }
+        }
 
+        for (int i = 0; i < n; i++) {
+            int p = i;
+            p = getParent(parent, p);
+            s.add(p);
+        }
 
-
-
-
-
-
-        return answer;
+        return s.size();
     }
 }
