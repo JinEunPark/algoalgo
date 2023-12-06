@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 //네트워크 연결
 public class Solution {
     Set<Integer> s = new HashSet<>();
@@ -36,3 +35,7 @@ public class Solution {
         return s.size();
     }
 }
+
+
+
+
